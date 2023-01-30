@@ -1,0 +1,16 @@
+td, th {
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+
+.habit-list {
+    &__buttons {
+        display: flex;
+        flex-direction: row;
+
+        &--delete-button, &--edit-button {
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+    }
+}

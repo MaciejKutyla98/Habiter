@@ -7,17 +7,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
 import { FeaturesModule } from './features/features.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-  ],
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
     FeaturesModule,
+    SharedModule,
     StoreModule.forRoot({}, {})
   ],
   providers: [],
