@@ -1,0 +1,8 @@
+query Habits {
+  habits {
+    id
+    name
+    description
+    priority
+  }
+}

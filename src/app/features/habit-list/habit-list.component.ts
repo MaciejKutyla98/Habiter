@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { Apollo, gql } from 'apollo-angular';
+import { HabitsQuery } from 'graphql/generated';
 import { Habit } from 'src/app/core/interfaces/habit.interface';
-import { habitListMock } from 'src/app/core/mocks/habit-list.mock';
 import { EditHabitComponent } from 'src/app/shared/components/edit-habit/edit-habit.component';
+import { HabitListService } from './habit-list.service';
 
 @Component({
   selector: 'app-habit-list',
@@ -12,16 +14,25 @@ import { EditHabitComponent } from 'src/app/shared/components/edit-habit/edit-ha
 })
 export class HabitListComponent implements OnInit {
   habitListHeaders: string[] = ['name', 'description', 'priority', 'actions'];
-  habitList: Habit[] = habitListMock;
+  habitList: HabitsQuery['habits'] = [];
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
-  constructor (public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    
+  rates: any[] = [];
+  loading = true
+  error: any
+
+  constructor (
+    public dialog: MatDialog,
+    private apollo: Apollo,
+    private habitListService: HabitListService,
+    ) { }
+
+  ngOnInit() {
+    this.habitListService.getHabitsList().subscribe(resp => this.habitList = [...resp]);
   }
 
   deleteHabit(habitId: string): void {
-    this.habitList = this.habitList.filter((habit: Habit) => habit.id !== habitId);
+    this.habitList = this.habitList.filter((habit: HabitsQuery['habits'][0]) => habit.id !== habitId);
   }
 
   editHabit(habit: Habit): void {
@@ -30,7 +41,7 @@ export class HabitListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe({
-      next: (editedHabit: Habit) => {
+      next: (editedHabit: HabitsQuery['habits'][0]) => {
         if (typeof editedHabit !== 'undefined') {
           this.replaceExistingHabit(editedHabit);
           this.table.renderRows();
@@ -40,7 +51,7 @@ export class HabitListComponent implements OnInit {
     })
     }
   
-  private replaceExistingHabit(editedHabit: Habit): void {
-    this.habitList[this.habitList.findIndex(row => row.id === editedHabit.id)] = editedHabit;
+  private replaceExistingHabit(editedHabit: HabitsQuery['habits'][0]): void {
+    this.habitList[this.habitList.findIndex((row: HabitsQuery['habits'][0]) => row.id === editedHabit.id)] = editedHabit;
   }
 }
