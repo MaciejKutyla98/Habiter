@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ChoosePriority } from 'src/app/core/interfaces/choose-priority.interface';
-import { Habit } from 'src/app/core/interfaces/habit.interface';
+import { EditHabitService } from './edit-habit.service';
+import { Habit } from 'graphql/generated';
+import { Priority } from 'src/app/core/enums/priority.enum';
 
 @Component({
   selector: 'app-edit-habit',
@@ -11,22 +13,28 @@ import { Habit } from 'src/app/core/interfaces/habit.interface';
 export class EditHabitComponent {
   editableHabit: Habit = {...this.habit};
   choosePriority: ChoosePriority[] = [
-    {value: 0, viewValue: 'Low'},
-    {value: 1, viewValue: 'Medium'},
-    {value: 2, viewValue: 'High'},
+    {value: Priority.Low, viewValue: 'Low'},
+    {value: Priority.Medium, viewValue: 'Medium'},
+    {value: Priority.High, viewValue: 'High'},
   ];
 
   constructor(
     public dialogRef: MatDialogRef<EditHabitComponent>,
     @Inject(MAT_DIALOG_DATA) public habit: Habit,
+    private editHabitService: EditHabitService
   ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
-  saveHabit(): void {
-    this.habit = {...this.editableHabit};
-    this.dialogRef.close(this.habit);
+  saveHabit(): void {    
+    this.editHabitService.updateHabit({
+      idToUpdate: this.editableHabit.id,
+      name: this.editableHabit.name,
+      priority: this.editableHabit.priority,
+      description: this.editableHabit.description
+      })
+    this.dialogRef.close();
   }
 }

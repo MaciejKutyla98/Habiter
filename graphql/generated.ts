@@ -77,6 +77,13 @@ export type HabitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HabitsQuery = { __typename?: 'Query', habits: Array<{ __typename?: 'Habit', id: string, name: string, description?: string | null, priority: HabitPriority }> };
 
+export type UpdateHabitMutationVariables = Exact<{
+  habitInput: HabitInput;
+}>;
+
+
+export type UpdateHabitMutation = { __typename?: 'Mutation', updateHabit: { __typename?: 'Habit', id: string, priority: HabitPriority } };
+
 export const HabitsDocument = gql`
     query Habits {
   habits {
@@ -93,6 +100,25 @@ export const HabitsDocument = gql`
   })
   export class HabitsGQL extends Apollo.Query<HabitsQuery, HabitsQueryVariables> {
     override document = HabitsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateHabitDocument = gql`
+    mutation UpdateHabit($habitInput: HabitInput!) {
+  updateHabit(input: $habitInput) {
+    id
+    priority
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateHabitGQL extends Apollo.Mutation<UpdateHabitMutation, UpdateHabitMutationVariables> {
+    override document = UpdateHabitDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
