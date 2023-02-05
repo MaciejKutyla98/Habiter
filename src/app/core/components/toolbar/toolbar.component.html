@@ -1,6 +1,9 @@
-<mat-toolbar class="toolbar">
-    <button mat-icon-button class="toolbar__button" aria-label="Example icon-button with menu icon">
+<mat-toolbar class="toolbar" color="primary">
+    <button mat-icon-button class="toolbar__button" aria-label="Example icon-button with menu icon" [matMenuTriggerFor]="belowMenu">
       <mat-icon class="toolbar__button-icon">menu</mat-icon>
     </button>
-    <span class="toolbar__app-title">Habiter</span>
+    <mat-menu #belowMenu="matMenu" yPosition="below">
+      <button mat-menu-item (click)="navigateToSelectedFromMenu(routes.HabitList)">Habit list</button>
+    </mat-menu>
+    <span class="toolbar__app-title" (click)="navigateToSelectedFromMenu(routes.HomeScreen)">Habiter</span>
   </mat-toolbar>

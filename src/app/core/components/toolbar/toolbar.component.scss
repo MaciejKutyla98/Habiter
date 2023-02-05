@@ -1,10 +1,9 @@
 @import './../../../styles/variables.scss';
 
 .toolbar {
-    background-color: $toolbar-color;
 
     &__app-title {
         padding: 0 0 0 2rem;
-        color: $white;
+        cursor: pointer;
     }
 }
