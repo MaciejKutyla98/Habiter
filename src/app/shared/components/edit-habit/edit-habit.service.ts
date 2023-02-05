@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Habit, HabitInput, UpdateHabitGQL } from 'graphql/generated';
+import { HabitInput, UpdateHabitGQL } from 'graphql/generated';
 
 @Injectable({
   providedIn: 'root'

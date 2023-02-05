@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ChoosePriority } from 'src/app/core/interfaces/choose-priority.interface';
 import { EditHabitService } from './edit-habit.service';
 import { Habit } from 'graphql/generated';
 import { Priority } from 'src/app/core/enums/priority.enum';
+import { ChoosePriority } from 'src/app/core/interfaces/choose-priority.interface';
 
 @Component({
   selector: 'app-edit-habit',

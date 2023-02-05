@@ -29,4 +29,8 @@
 
       <tr mat-header-row *matHeaderRowDef="habitListHeaders"></tr>
       <tr mat-row *matRowDef="let row; columns: habitListHeaders;"></tr>
+
 </table>
+<button mat-mini-fab class="add-habit" (click)="createHabit(exampleHabit)">
+  <mat-icon>playlist_add</mat-icon>
+</button>

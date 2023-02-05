@@ -6,3 +6,16 @@ query Habits {
     priority
   }
 }
+
+mutation DeleteHabit($idToDelete: ID!) {
+    deleteHabit(idToDelete: $idToDelete) 
+}
+
+mutation CreateHabit($habitInput: HabitInput!) {
+    createHabit(input: $habitInput) {
+        id
+        name
+        description
+        priority
+    }
+}

@@ -77,12 +77,26 @@ export type HabitsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HabitsQuery = { __typename?: 'Query', habits: Array<{ __typename?: 'Habit', id: string, name: string, description?: string | null, priority: HabitPriority }> };
 
+export type DeleteHabitMutationVariables = Exact<{
+  idToDelete: Scalars['ID'];
+}>;
+
+
+export type DeleteHabitMutation = { __typename?: 'Mutation', deleteHabit: boolean };
+
+export type CreateHabitMutationVariables = Exact<{
+  habitInput: HabitInput;
+}>;
+
+
+export type CreateHabitMutation = { __typename?: 'Mutation', createHabit: { __typename?: 'Habit', id: string, name: string, description?: string | null, priority: HabitPriority } };
+
 export type UpdateHabitMutationVariables = Exact<{
   habitInput: HabitInput;
 }>;
 
 
-export type UpdateHabitMutation = { __typename?: 'Mutation', updateHabit: { __typename?: 'Habit', id: string, priority: HabitPriority } };
+export type UpdateHabitMutation = { __typename?: 'Mutation', updateHabit: { __typename?: 'Habit', id: string, name: string, description?: string | null, priority: HabitPriority } };
 
 export const HabitsDocument = gql`
     query Habits {
@@ -105,10 +119,49 @@ export const HabitsDocument = gql`
       super(apollo);
     }
   }
+export const DeleteHabitDocument = gql`
+    mutation DeleteHabit($idToDelete: ID!) {
+  deleteHabit(idToDelete: $idToDelete)
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class DeleteHabitGQL extends Apollo.Mutation<DeleteHabitMutation, DeleteHabitMutationVariables> {
+    override document = DeleteHabitDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateHabitDocument = gql`
+    mutation CreateHabit($habitInput: HabitInput!) {
+  createHabit(input: $habitInput) {
+    id
+    name
+    description
+    priority
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateHabitGQL extends Apollo.Mutation<CreateHabitMutation, CreateHabitMutationVariables> {
+    override document = CreateHabitDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const UpdateHabitDocument = gql`
     mutation UpdateHabit($habitInput: HabitInput!) {
   updateHabit(input: $habitInput) {
     id
+    name
+    description
     priority
   }
 }

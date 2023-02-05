@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { Apollo, gql } from 'apollo-angular';
-import { HabitsQuery } from 'graphql/generated';
-import { Habit } from 'src/app/core/interfaces/habit.interface';
+import { Habit, HabitInput, HabitPriority, HabitsQuery } from 'graphql/generated';
+import { Priority } from 'src/app/core/enums/priority.enum';
 import { EditHabitComponent } from 'src/app/shared/components/edit-habit/edit-habit.component';
 import { HabitListService } from './habit-list.service';
 
@@ -23,16 +22,25 @@ export class HabitListComponent implements OnInit {
 
   constructor (
     public dialog: MatDialog,
-    private apollo: Apollo,
     private habitListService: HabitListService,
     ) { }
 
   ngOnInit() {
-    this.habitListService.getHabitsList().subscribe(resp => this.habitList = [...resp]);
+    this.getHabitList();
   }
 
+  private getHabitList(): void {
+    this.habitListService.getHabitsList().subscribe({
+      next: (habitList: HabitsQuery['habits']) => {
+        this.habitList = [...habitList]
+      },
+      error:  (err: Error) => console.log(err),         
+    })
+}
+
   deleteHabit(habitId: string): void {
-    this.habitList = this.habitList.filter((habit: HabitsQuery['habits'][0]) => habit.id !== habitId);
+    this.habitListService.deleteHabit(habitId);
+    this.table.renderRows();
   }
 
   editHabit(habit: Habit): void {
@@ -53,5 +61,21 @@ export class HabitListComponent implements OnInit {
   
   private replaceExistingHabit(editedHabit: HabitsQuery['habits'][0]): void {
     this.habitList[this.habitList.findIndex((row: HabitsQuery['habits'][0]) => row.id === editedHabit.id)] = editedHabit;
+  }
+
+  createHabit(habit: HabitInput): void {
+    this.habitListService.createHabit({
+      idToUpdate: habit.idToUpdate,
+      name: habit.name,
+      priority: habit.priority,
+      description: habit.description
+      })
+  }
+
+  exampleHabit = {
+    id: '5',
+    name: 'meditation',
+    priority: HabitPriority.High,
+    description: 'jakis opis'
   }
 }
