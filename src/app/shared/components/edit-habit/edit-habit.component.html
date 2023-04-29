@@ -1,0 +1,39 @@
+<div class="edit-habit">
+
+    <h1 mat-dialog-title class="edit-habit__title">Edit {{habit.name}} habit!</h1>
+    <mat-divider></mat-divider>
+
+    <div mat-dialog-content class="edit-habit__content">
+
+      <form class="habit-form">
+
+        <mat-form-field class="habit-form__name">
+          <mat-label>Habit's name</mat-label>
+          <input matInput placeholder="Change habit's name" name="habitName" [(ngModel)]="editableHabit.name">
+        </mat-form-field>
+
+        <mat-form-field class="habit-form__description">
+          <mat-label>Habit's description</mat-label>
+          <textarea matInput placeholder="Change habit's description" name="habitDescription" [(ngModel)]="editableHabit.description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="habit-form__priority">
+          <mat-label>Change habit's priority</mat-label>
+          <mat-select [(value)]="editableHabit.priority">
+            <mat-option *ngFor="let priority of choosePriority" [value]="priority.value">
+              {{priority.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </form>
+
+    </div>
+
+    <div mat-dialog-actions class="edit-habit__footer">
+      <button mat-raised-button (click)="onNoClick()" class="edit-habit__footer--back-btn">Back to list</button>
+      <button mat-raised-button  (click)="saveHabit()" class="edit-habit__footer--save-btn" color="primary" cdkFocusInitial>Save</button>
+    </div>
+
+</div>
+

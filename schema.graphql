@@ -1,0 +1,42 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuditRecord {
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+type Habit {
+  id: ID!
+  name: String!
+  description: String
+  priority: HabitPriority!
+  auditRecord: AuditRecord!
+}
+
+enum HabitPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+"""An RFC-3339 compliant date string"""
+scalar Date
+
+type Query {
+  habits: [Habit!]!
+}
+
+type Mutation {
+  createHabit(input: HabitInput!): Habit!
+  updateHabit(input: HabitInput!): Habit!
+  deleteHabit(idToDelete: ID!): Boolean!
+}
+
+input HabitInput {
+  idToUpdate: ID
+  name: String!
+  description: String
+  priority: HabitPriority!
+}
