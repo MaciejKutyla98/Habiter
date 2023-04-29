@@ -3,7 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HabitListComponent } from './features/habit-list/habit-list.component';
 
 const routes: Routes = [
-    {path: 'habit-list', component: HabitListComponent},
+    {
+      path: 'habit-list', 
+      component: HabitListComponent
+    },
 ];
 
 @NgModule({

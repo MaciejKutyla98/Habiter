@@ -51,7 +51,6 @@ export class HabitListComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (editedHabit: HabitsQuery['habits'][0]) => {
         if (typeof editedHabit !== 'undefined') {
-          this.replaceExistingHabit(editedHabit);
           this.table.renderRows();
         }
       },
@@ -59,10 +58,6 @@ export class HabitListComponent implements OnInit {
     })
     }
   
-  private replaceExistingHabit(editedHabit: HabitsQuery['habits'][0]): void {
-    this.habitList[this.habitList.findIndex((row: HabitsQuery['habits'][0]) => row.id === editedHabit.id)] = editedHabit;
-  }
-
   createHabit(habit: HabitInput): void {
     this.habitListService.createHabit({
       idToUpdate: habit.idToUpdate,
@@ -73,7 +68,6 @@ export class HabitListComponent implements OnInit {
   }
 
   exampleHabit = {
-    id: '5',
     name: 'meditation',
     priority: HabitPriority.High,
     description: 'jakis opis'
