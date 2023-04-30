@@ -18,7 +18,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let habit" class="habit-list__buttons"> 
-          <button mat-mini-fab class="habit-list__buttons--edit-button" color="primary" (click)="editHabit(habit)">
+          <button mat-mini-fab class="habit-list__buttons--edit-button" color="primary" (click)="openHabitForm(habit, 'edit')">
             <mat-icon>menu</mat-icon>
           </button> 
           <button mat-mini-fab class="habit-list__buttons--delete-button" color="warn" (click)="deleteHabit(habit.id)">
@@ -31,6 +31,6 @@
       <tr mat-row *matRowDef="let row; columns: habitListHeaders;"></tr>
 
 </table>
-<button mat-mini-fab class="add-habit" (click)="createHabit(exampleHabit)">
+<button mat-mini-fab class="add-habit" (click)="openHabitForm(newHabit, 'create')">
   <mat-icon>playlist_add</mat-icon>
 </button>

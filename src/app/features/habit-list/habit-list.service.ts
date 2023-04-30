@@ -7,7 +7,6 @@ export class HabitListService {
     constructor (
         private habitsQGL: HabitsGQL,
         private deleteHabitGQL: DeleteHabitGQL,
-        private createHabitGQL: CreateHabitGQL
     ) {}
 
     getHabitsList(): Observable<HabitsQuery['habits']> {
@@ -25,14 +24,4 @@ export class HabitListService {
           }]
         }).subscribe();
       }
-
-    createHabit(habit: HabitInput): void {
-      this.createHabitGQL.mutate({
-        habitInput: habit
-      }, {
-        refetchQueries: [{
-          query: this.habitsQGL.document
-        }]
-    }).subscribe();
-    }
 }

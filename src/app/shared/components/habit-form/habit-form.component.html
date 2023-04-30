@@ -1,6 +1,6 @@
 <div class="edit-habit">
 
-    <h1 mat-dialog-title class="edit-habit__title">Edit {{habit.name}} habit!</h1>
+    <h1 mat-dialog-title class="edit-habit__title">{{getProperTitle(data.mode, data.habit)}}</h1>
     <mat-divider></mat-divider>
 
     <div mat-dialog-content class="edit-habit__content">
@@ -32,7 +32,7 @@
 
     <div mat-dialog-actions class="edit-habit__footer">
       <button mat-raised-button (click)="onNoClick()" class="edit-habit__footer--back-btn">Back to list</button>
-      <button mat-raised-button  (click)="saveHabit()" class="edit-habit__footer--save-btn" color="primary" cdkFocusInitial>Save</button>
+      <button mat-raised-button  (click)="saveHabit(data.mode)" class="edit-habit__footer--save-btn" color="primary" cdkFocusInitial>Save</button>
     </div>
 
 </div>

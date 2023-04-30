@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { Habit, HabitInput, HabitPriority, HabitsQuery } from 'graphql/generated';
 import { Priority } from 'src/app/core/enums/priority.enum';
-import { EditHabitComponent } from 'src/app/shared/components/edit-habit/edit-habit.component';
+import { HabitFormComponent } from 'src/app/shared/components/habit-form/habit-form.component';
 import { HabitListService } from './habit-list.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class HabitListComponent implements OnInit {
   habitListHeaders: string[] = ['name', 'description', 'priority', 'actions'];
   habitList: HabitsQuery['habits'] = [];
   @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
-
+  newHabit: Habit = {} as Habit;
   rates: any[] = [];
   loading = true
   error: any
@@ -43,9 +43,12 @@ export class HabitListComponent implements OnInit {
     this.table.renderRows();
   }
 
-  editHabit(habit: Habit): void {
-    const dialogRef: MatDialogRef<EditHabitComponent, any> = this.dialog.open(EditHabitComponent, {
-      data: habit,
+  openHabitForm(habit: Habit, mode: string): void {
+    const dialogRef: MatDialogRef<HabitFormComponent, any> = this.dialog.open(HabitFormComponent, {
+      data: {
+        habit: habit,
+        mode: mode
+      },
     });
 
     dialogRef.afterClosed().subscribe({
@@ -57,19 +60,4 @@ export class HabitListComponent implements OnInit {
       error: error => this.habitList = []
     })
     }
-  
-  createHabit(habit: HabitInput): void {
-    this.habitListService.createHabit({
-      idToUpdate: habit.idToUpdate,
-      name: habit.name,
-      priority: habit.priority,
-      description: habit.description
-      })
-  }
-
-  exampleHabit = {
-    name: 'meditation',
-    priority: HabitPriority.High,
-    description: 'jakis opis'
-  }
 }
