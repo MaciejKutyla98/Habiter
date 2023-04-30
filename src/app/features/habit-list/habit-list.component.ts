@@ -12,13 +12,11 @@ import { HabitListService } from './habit-list.service';
   styleUrls: ['./habit-list.component.scss']
 })
 export class HabitListComponent implements OnInit {
+  @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
+  
   habitListHeaders: string[] = ['name', 'description', 'priority', 'actions'];
   habitList: HabitsQuery['habits'] = [];
-  @ViewChild(MatTable) table: MatTable<any> = {} as MatTable<any>;
   newHabit: Habit = {} as Habit;
-  rates: any[] = [];
-  loading = true
-  error: any
 
   constructor (
     public dialog: MatDialog,
@@ -59,5 +57,5 @@ export class HabitListComponent implements OnInit {
       },
       error: error => this.habitList = []
     })
-    }
+  }
 }

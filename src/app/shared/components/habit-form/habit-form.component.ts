@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EditHabitService } from './habit-form.service';
+import { HabitFormService } from './habit-form.service';
 import { Habit, HabitInput } from 'graphql/generated';
 import { Priority } from 'src/app/core/enums/priority.enum';
 import { ChoosePriority } from 'src/app/core/interfaces/choose-priority.interface';
@@ -22,7 +22,7 @@ export class HabitFormComponent {
   constructor(
     public dialogRef: MatDialogRef<HabitFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private habitFormService: EditHabitService,
+    private habitFormService: HabitFormService,
   ) { }
 
   onNoClick(): void {

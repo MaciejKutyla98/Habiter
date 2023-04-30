@@ -4,7 +4,7 @@ import { CreateHabitGQL, HabitInput, HabitsGQL, UpdateHabitGQL } from 'graphql/g
 @Injectable({
   providedIn: 'root'
 })
-export class EditHabitService {
+export class HabitFormService {
 
   constructor (
     private habitsQGL: HabitsGQL,
