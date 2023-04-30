@@ -1,0 +1,9 @@
+mutation ValidateAuthenticatedUser {
+    validateAuthenticatedUser {
+      id,
+      authProviderUserId,
+      email,
+      name,
+      pictureUrl
+    }
+  }

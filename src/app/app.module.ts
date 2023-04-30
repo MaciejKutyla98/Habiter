@@ -14,6 +14,11 @@ import { ApolloModule, APOLLO_NAMED_OPTIONS, APOLLO_OPTIONS } from 'apollo-angul
 import { HttpLink } from 'apollo-angular/http';
 import { InMemoryCache } from '@apollo/client/core';
 
+
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from './enviroment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +33,9 @@ import { InMemoryCache } from '@apollo/client/core';
     StoreModule.forRoot({}, {}),
     GraphQLModule,
     HttpClientModule,
-    ApolloModule
+    ApolloModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
   ],
   providers: [
     {

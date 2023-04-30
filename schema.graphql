@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  id: ID!
+  authProviderUserId: ID!
+  email: String
+  name: String
+  pictureUrl: String
+}
+
 type AuditRecord {
   createdAt: Date!
   updatedAt: Date!
@@ -25,10 +33,12 @@ enum HabitPriority {
 scalar Date
 
 type Query {
+  currentUser: User!
   habits: [Habit!]!
 }
 
 type Mutation {
+  validateAuthenticatedUser: User!
   createHabit(input: HabitInput!): Habit!
   updateHabit(input: HabitInput!): Habit!
   deleteHabit(idToDelete: ID!): Boolean!

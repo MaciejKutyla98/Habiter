@@ -50,6 +50,7 @@ export type Mutation = {
   createHabit: Habit;
   deleteHabit: Scalars['Boolean'];
   updateHabit: Habit;
+  validateAuthenticatedUser: User;
 };
 
 
@@ -69,7 +70,17 @@ export type MutationUpdateHabitArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  currentUser: User;
   habits: Array<Habit>;
+};
+
+export type User = {
+  __typename?: 'User';
+  authProviderUserId: Scalars['ID'];
+  email?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  pictureUrl?: Maybe<Scalars['String']>;
 };
 
 export type HabitsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -97,6 +108,11 @@ export type UpdateHabitMutationVariables = Exact<{
 
 
 export type UpdateHabitMutation = { __typename?: 'Mutation', updateHabit: { __typename?: 'Habit', id: string, name: string, description?: string | null, priority: HabitPriority } };
+
+export type ValidateAuthenticatedUserMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ValidateAuthenticatedUserMutation = { __typename?: 'Mutation', validateAuthenticatedUser: { __typename?: 'User', id: string, authProviderUserId: string, email?: string | null, name?: string | null, pictureUrl?: string | null } };
 
 export const HabitsDocument = gql`
     query Habits {
@@ -172,6 +188,28 @@ export const UpdateHabitDocument = gql`
   })
   export class UpdateHabitGQL extends Apollo.Mutation<UpdateHabitMutation, UpdateHabitMutationVariables> {
     override document = UpdateHabitDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const ValidateAuthenticatedUserDocument = gql`
+    mutation ValidateAuthenticatedUser {
+  validateAuthenticatedUser {
+    id
+    authProviderUserId
+    email
+    name
+    pictureUrl
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ValidateAuthenticatedUserGQL extends Apollo.Mutation<ValidateAuthenticatedUserMutation, ValidateAuthenticatedUserMutationVariables> {
+    override document = ValidateAuthenticatedUserDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

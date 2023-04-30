@@ -5,10 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { HabitListService } from './habit-list/habit-list.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     HabitListComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,

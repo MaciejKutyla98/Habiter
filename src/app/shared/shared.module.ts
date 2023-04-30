@@ -7,6 +7,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
+import { AuthService } from './services/auth/auth.service';
 @NgModule({
   declarations: [
     EditHabitComponent
@@ -20,7 +21,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatDividerModule
   ],
-  providers: [],
+  providers: [AuthService],
   exports: [
     EditHabitComponent
   ]

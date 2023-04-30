@@ -5,6 +5,7 @@ import { Habit, HabitInput, HabitPriority, HabitsQuery } from 'graphql/generated
 import { Priority } from 'src/app/core/enums/priority.enum';
 import { EditHabitComponent } from 'src/app/shared/components/edit-habit/edit-habit.component';
 import { HabitListService } from './habit-list.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-habit-list',
@@ -23,6 +24,7 @@ export class HabitListComponent implements OnInit {
   constructor (
     public dialog: MatDialog,
     private habitListService: HabitListService,
+    public authService: AuthService
     ) { }
 
   ngOnInit() {
