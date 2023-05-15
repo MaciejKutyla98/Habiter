@@ -1,4 +1,3 @@
-<div *ngIf="this.authService.isLoggedIn">
   <table mat-table [dataSource]="habitList" class="habit-list">
 
     <ng-container matColumnDef="name">
@@ -35,4 +34,4 @@
 <button mat-mini-fab class="add-habit" (click)="createHabit(exampleHabit)">
   <mat-icon>playlist_add</mat-icon>
 </button>
-</div>
+

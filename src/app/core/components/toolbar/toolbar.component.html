@@ -6,4 +6,5 @@
       <button mat-menu-item (click)="navigateToSelectedFromMenu(routes.HabitList)">Habit list</button>
     </mat-menu>
     <span class="toolbar__app-title" (click)="navigateToSelectedFromMenu(routes.HomeScreen)">Habiter</span>
+    <button (click)="authService.signOut()">Logout</button>
   </mat-toolbar>

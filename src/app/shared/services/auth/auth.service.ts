@@ -20,6 +20,7 @@ export class AuthService {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
+        this.setLoggedInformationToLocalStorage();
       }
     });
   }
@@ -49,7 +50,7 @@ export class AuthService {
 
   signOut() {
     return this.afAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      localStorage.removeItem('isUserLoggedIn');
       this.router.navigate(['login']);
     });
   }
@@ -63,8 +64,8 @@ export class AuthService {
       }
     }).subscribe();
   }
-  
-  get isLoggedIn(): boolean {
-    return !!this.userData;
+
+  setLoggedInformationToLocalStorage(): void {
+    localStorage.setItem('isUserLoggedIn', 'true')
   }
 }
